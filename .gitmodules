@@ -1,0 +1,3 @@
+[submodule "AlgoTrading/AlgoTrading"]
+	path = AlgoTrading/AlgoTrading
+	url = https://github.com/xujunhuii/AlgoTrading.git

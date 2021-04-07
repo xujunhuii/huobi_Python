@@ -14,3 +14,6 @@ huobi/privateconfig.py
 
 ### Other ###
 .DS_Store
+*.csv
+*.xlsx
+*.zip
