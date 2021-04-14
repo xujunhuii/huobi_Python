@@ -41,6 +41,7 @@ class MatchResult:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.id, format_data + "ID")
         PrintBasic.print_basic(self.created_at, format_data + "Create Time")
         PrintBasic.print_basic(self.filled_amount, format_data + "Fill Amount")
@@ -53,6 +54,8 @@ class MatchResult:
         PrintBasic.print_basic(self.symbol, format_data + "Symbol")
         PrintBasic.print_basic(self.type, format_data + "Order Type")
         PrintBasic.print_basic(self.role, format_data + "Role")
-        PrintBasic.print_basic(self.fee_deduct_currency, format_data + "Fee Deduct Currency")
+        PrintBasic.print_basic(
+            self.fee_deduct_currency, format_data + "Fee Deduct Currency"
+        )
         PrintBasic.print_basic(self.fee_currency, format_data + "Fee Currency")
         PrintBasic.print_basic(self.fee_deduct_state, format_data + "Fee Deduct State")

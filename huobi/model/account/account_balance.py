@@ -28,8 +28,12 @@ class AccountBalance:
             balance_list = data_dict.get("list")
             data_dict.pop("list")
             account_balance_obj = default_parse(data_dict, AccountBalance, Balance)
-            account_balance_obj.subtype = data_dict.get("subtype", data_dict.get("symbol"))
-            account_balance_obj.list = default_parse_list_dict(balance_list, Balance, [])
+            account_balance_obj.subtype = data_dict.get(
+                "subtype", data_dict.get("symbol")
+            )
+            account_balance_obj.list = default_parse_list_dict(
+                balance_list, Balance, []
+            )
             return account_balance_obj
 
         return None
@@ -46,6 +50,7 @@ class AccountBalance:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.id, format_data + "Account ID")
         PrintBasic.print_basic(self.type, format_data + "Account Type")
         PrintBasic.print_basic(self.state, format_data + "Account State")
@@ -54,5 +59,5 @@ class AccountBalance:
         print()
         if len(self.list):
             for row in self.list:
-                row.print_object(format_data+"\t")
+                row.print_object(format_data + "\t")
                 print()

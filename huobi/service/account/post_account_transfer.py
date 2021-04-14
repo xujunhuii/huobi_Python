@@ -5,7 +5,6 @@ from huobi.utils import *
 
 
 class PostAccountTransferService:
-
     def __init__(self, params):
         self.params = params
 
@@ -16,4 +15,6 @@ class PostAccountTransferService:
             data = dict_data.get("data", {})
             return default_parse(data, AccountTransferResult, [])
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.POST_SIGN, channel, self.params, parse)
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.POST_SIGN, channel, self.params, parse
+        )

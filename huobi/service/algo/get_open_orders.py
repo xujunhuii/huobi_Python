@@ -5,7 +5,6 @@ from huobi.model.algo import *
 
 
 class GetOpenOrdersService:
-
     def __init__(self, params):
         self.params = params
 
@@ -38,4 +37,6 @@ class GetOpenOrdersService:
             data = dict_data.get("data", {})
             return default_parse_list_dict(data, OrderListItem)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET_SIGN, channel, self.params, parse)
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET_SIGN, channel, self.params, parse
+        )

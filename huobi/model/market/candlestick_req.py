@@ -1,5 +1,6 @@
 from huobi.constant import *
 
+
 class CandlestickReq:
     """
     The candlestick/kline data received by subscription of candlestick/kline.
@@ -18,6 +19,7 @@ class CandlestickReq:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.rep, format_data + "Channel")
         PrintBasic.print_basic(self.id, format_data + "Unix Time")
         print()

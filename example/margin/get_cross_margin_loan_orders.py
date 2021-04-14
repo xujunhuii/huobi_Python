@@ -12,5 +12,3 @@ LogInfo.output_list(list_obj)
 # filter by state
 list_obj = margin_client.get_cross_margin_loan_orders(state=LoanOrderState.ACCRUAL)
 LogInfo.output_list(list_obj)
-
-

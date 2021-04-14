@@ -17,3 +17,5 @@ huobi/privateconfig.py
 *.csv
 *.xlsx
 *.zip
+
+.ipynb_checkpoints/*

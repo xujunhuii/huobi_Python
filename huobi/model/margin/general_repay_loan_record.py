@@ -26,6 +26,7 @@ class GeneralRepayLoanRecord:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.repayId, format_data + "repayId")
         PrintBasic.print_basic(self.repayTime, format_data + "repayTime")
         PrintBasic.print_basic(self.accountId, format_data + "accountId")
@@ -56,4 +57,3 @@ class Transact:
         self.repaidInterest = None
         self.paidHt = None
         self.paidPoint = None
-

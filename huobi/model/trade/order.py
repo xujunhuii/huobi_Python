@@ -42,13 +42,17 @@ class Order:
         self.client_order_id = ""
         self.stop_price = ""
         self.next_time = 0
-        self.operator=""
+        self.operator = ""
 
     @staticmethod
     def json_parse(json_data):
         order = fill_obj(json_data, Order)
-        order.filled_amount = json_data.get("filled-amount", json_data.get("field-amount", 0))
-        order.filled_cash_amount = json_data.get("filled-cash-amount", json_data.get("field-cash-amount", 0))
+        order.filled_amount = json_data.get(
+            "filled-amount", json_data.get("field-amount", 0)
+        )
+        order.filled_cash_amount = json_data.get(
+            "filled-cash-amount", json_data.get("field-cash-amount", 0)
+        )
         order.filled_fees = json_data.get("filled-fees", json_data.get("field-fees", 0))
         return order
 
@@ -65,6 +69,7 @@ class Order:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.id, format_data + "Order Id")
         PrintBasic.print_basic(self.symbol, format_data + "Symbol")
         PrintBasic.print_basic(self.price, format_data + "Price")
@@ -74,13 +79,14 @@ class Order:
         PrintBasic.print_basic(self.finished_at, format_data + "Finish Time")
         PrintBasic.print_basic(self.type, format_data + "Order Type")
         PrintBasic.print_basic(self.filled_amount, format_data + "Filled Amount")
-        PrintBasic.print_basic(self.filled_cash_amount, format_data + "Filled Cash Amount")
+        PrintBasic.print_basic(
+            self.filled_cash_amount, format_data + "Filled Cash Amount"
+        )
         PrintBasic.print_basic(self.filled_fees, format_data + "Filled Fees")
-        #PrintBasic.print_basic(self.account_type, format_data + "Account Type")
+        # PrintBasic.print_basic(self.account_type, format_data + "Account Type")
         PrintBasic.print_basic(self.source, format_data + "Order Source")
         PrintBasic.print_basic(self.state, format_data + "Order State")
         PrintBasic.print_basic(self.client_order_id, format_data + "Client Order Id")
         PrintBasic.print_basic(self.stop_price, format_data + "Stop Price")
         PrintBasic.print_basic(self.operator, format_data + "Operator")
         PrintBasic.print_basic(self.next_time, format_data + "Next Time")
-

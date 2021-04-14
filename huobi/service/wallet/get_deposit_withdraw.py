@@ -5,7 +5,6 @@ from huobi.utils import *
 
 
 class GetDepositWithdrawService:
-
     def __init__(self, params):
         self.params = params
 
@@ -21,10 +20,6 @@ class GetDepositWithdrawService:
                 return default_parse_list_dict(data_list, Withdraw)
             return []
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET_SIGN, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET_SIGN, channel, self.params, parse
+        )

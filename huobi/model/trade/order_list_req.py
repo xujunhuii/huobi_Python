@@ -1,4 +1,3 @@
-
 class OrderListReq:
     """
     The order update received by request of order list.
@@ -16,9 +15,9 @@ class OrderListReq:
         self.topic = ""
         self.data = list()
 
-
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.ts, format_data + "Timestamp")
         PrintBasic.print_basic(self.topic, format_data + "Channel")
         print("Order List as below : count " + str(len(self.data)))
@@ -26,4 +25,3 @@ class OrderListReq:
             for orderlistitem_obj in self.data:
                 orderlistitem_obj.print_object("\t ")
                 print()
-

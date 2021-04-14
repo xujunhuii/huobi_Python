@@ -4,7 +4,6 @@ from huobi.model.market import PriceDepth
 
 
 class GetPriceDepthService:
-
     def __init__(self, params):
         self.params = params
 
@@ -15,10 +14,6 @@ class GetPriceDepthService:
             tick = dict_data.get("tick", {})
             return PriceDepth.json_parse(tick)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET, channel, self.params, parse
+        )

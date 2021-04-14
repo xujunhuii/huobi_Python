@@ -3,8 +3,8 @@ from huobi.constant import *
 from huobi.utils import *
 from huobi.model.trade import *
 
-class PostBatchCancelOrderService:
 
+class PostBatchCancelOrderService:
     def __init__(self, params):
         self.params = params
 
@@ -15,10 +15,6 @@ class PostBatchCancelOrderService:
             data = dict_data.get("data", {})
             return default_parse_fill_directly(data, BatchCancelResult)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.POST_SIGN, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.POST_SIGN, channel, self.params, parse
+        )

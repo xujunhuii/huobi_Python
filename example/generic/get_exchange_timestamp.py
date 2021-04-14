@@ -5,4 +5,3 @@ from huobi.utils import *
 generic_client = GenericClient()
 ts = generic_client.get_exchange_timestamp()
 LogInfo.output(ts)
-

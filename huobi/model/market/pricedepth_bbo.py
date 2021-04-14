@@ -1,4 +1,3 @@
-
 class PriceDepthBbo:
     """
     The price depth information.
@@ -14,6 +13,7 @@ class PriceDepthBbo:
 
 
     """
+
     def __init__(self):
         self.seqId = 0
         self.ask = 0.0
@@ -25,6 +25,7 @@ class PriceDepthBbo:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.seqId, format_data + "Seq ID")
         PrintBasic.print_basic(self.ask, format_data + "Ask")
         PrintBasic.print_basic(self.askSize, format_data + "Ask Size")

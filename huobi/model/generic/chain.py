@@ -1,5 +1,6 @@
 from huobi.constant import *
 
+
 class Chain:
     """
     The Huobi Chain.
@@ -48,22 +49,45 @@ class Chain:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.chain, format_data + "Chain")
         PrintBasic.print_basic(self.baseChain, format_data + "Base Chain")
-        PrintBasic.print_basic(self.baseChainProtocol, format_data + "Base Chain Protocol")
-        PrintBasic.print_basic(self.numOfConfirmations, format_data + "numOfConfirmations")
-        PrintBasic.print_basic(self.numOfFastConfirmations, format_data + "numOfFastConfirmations")
+        PrintBasic.print_basic(
+            self.baseChainProtocol, format_data + "Base Chain Protocol"
+        )
+        PrintBasic.print_basic(
+            self.numOfConfirmations, format_data + "numOfConfirmations"
+        )
+        PrintBasic.print_basic(
+            self.numOfFastConfirmations, format_data + "numOfFastConfirmations"
+        )
         PrintBasic.print_basic(self.depositStatus, format_data + "depositStatus")
         PrintBasic.print_basic(self.minDepositAmt, format_data + "minDepositAmount")
         PrintBasic.print_basic(self.withdrawStatus, format_data + "withdrawStatus")
         PrintBasic.print_basic(self.minWithdrawAmt, format_data + "minWithdrawAmount")
-        PrintBasic.print_basic(self.withdrawPrecision, format_data + "withdrawPrecision")
+        PrintBasic.print_basic(
+            self.withdrawPrecision, format_data + "withdrawPrecision"
+        )
         PrintBasic.print_basic(self.maxWithdrawAmt, format_data + "maxWithdrawAmount")
-        PrintBasic.print_basic(self.withdrawQuotaPerDay, format_data + "withdrawQuotaPerDay")
-        PrintBasic.print_basic(self.withdrawQuotaPerYear, format_data + "withdrawQuotaPerYear")
-        PrintBasic.print_basic(self.withdrawQuotaTotal, format_data + "withdrawQuotaTotal")
+        PrintBasic.print_basic(
+            self.withdrawQuotaPerDay, format_data + "withdrawQuotaPerDay"
+        )
+        PrintBasic.print_basic(
+            self.withdrawQuotaPerYear, format_data + "withdrawQuotaPerYear"
+        )
+        PrintBasic.print_basic(
+            self.withdrawQuotaTotal, format_data + "withdrawQuotaTotal"
+        )
         PrintBasic.print_basic(self.withdrawFeeType, format_data + "withdrawFeeType")
-        PrintBasic.print_basic(self.transactFeeWithdraw, format_data + "transactFeeWithdraw")
-        PrintBasic.print_basic(self.minTransactFeeWithdraw, format_data + "minTransactFeeWithdraw")
-        PrintBasic.print_basic(self.maxTransactFeeWithdraw, format_data + "maxTransactFeeWithdraw")
-        PrintBasic.print_basic(self.transactFeeRateWithdraw, format_data + "transactFeeRateWithdraw")
+        PrintBasic.print_basic(
+            self.transactFeeWithdraw, format_data + "transactFeeWithdraw"
+        )
+        PrintBasic.print_basic(
+            self.minTransactFeeWithdraw, format_data + "minTransactFeeWithdraw"
+        )
+        PrintBasic.print_basic(
+            self.maxTransactFeeWithdraw, format_data + "maxTransactFeeWithdraw"
+        )
+        PrintBasic.print_basic(
+            self.transactFeeRateWithdraw, format_data + "transactFeeRateWithdraw"
+        )

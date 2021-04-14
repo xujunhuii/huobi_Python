@@ -1,4 +1,3 @@
-
 class AccountBalanceReq:
     """
     The account change information received by subscription of account.
@@ -17,9 +16,9 @@ class AccountBalanceReq:
         self.topic = ""
         self.data = list()
 
-
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.ts, format_data + "Timestamp")
         PrintBasic.print_basic(self.cid, format_data + "Client Order ID")
         PrintBasic.print_basic(self.topic, format_data + "Topic")

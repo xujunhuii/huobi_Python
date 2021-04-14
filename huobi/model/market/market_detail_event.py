@@ -1,5 +1,6 @@
 from huobi.model.market.market_detail import MarketDetail
 
+
 class MarketDetailEvent:
     """
      The 24H trade statistics received by subscription of trade statistics.
@@ -17,6 +18,7 @@ class MarketDetailEvent:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.ch, format_data + "Channel")
         PrintBasic.print_basic(self.ts, format_data + "Timestamp")
         self.tick.print_object()

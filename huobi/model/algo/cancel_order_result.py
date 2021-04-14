@@ -13,5 +13,15 @@ class CancelOrderResult:
         self.rejected = []
 
     def print_object(self, format_data=""):
-        print("Success Order Counts", len(self.accepted), " accepted Order Ids : ", self.accepted)
-        print("Fail Order Counts", len(self.rejected), " Rejected Order Ids : ", self.rejected)
+        print(
+            "Success Order Counts",
+            len(self.accepted),
+            " accepted Order Ids : ",
+            self.accepted,
+        )
+        print(
+            "Fail Order Counts",
+            len(self.rejected),
+            " Rejected Order Ids : ",
+            self.rejected,
+        )

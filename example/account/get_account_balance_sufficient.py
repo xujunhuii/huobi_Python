@@ -5,8 +5,7 @@ from huobi.constant import *
 # get accounts
 from huobi.utils import *
 
-account_client = AccountClient(api_key=g_api_key,
-                              secret_key=g_secret_key)
+account_client = AccountClient(api_key=g_api_key, secret_key=g_secret_key)
 # list_obj = account_client.get_accounts()
 # if list_obj and len(list_obj):
 #     for account_obj in list_obj:
@@ -18,7 +17,9 @@ account_client = AccountClient(api_key=g_api_key,
 #                     obj.print_object()
 #                     print()
 
-LogInfo.output("====== (SDK encapsulated api) not recommend for low performance and frequence limitation ======")
+LogInfo.output(
+    "====== (SDK encapsulated api) not recommend for low performance and frequence limitation ======"
+)
 account_balance_list = account_client.get_account_balance()
 if account_balance_list and len(account_balance_list):
     for account_balance_obj in account_balance_list:

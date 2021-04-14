@@ -5,7 +5,6 @@ from huobi.utils.input_checker import *
 
 
 class MarketClientPerformance(MarketClient):
-
     def __init__(self, **kwargs):
         """
         Create the request client instance.
@@ -20,7 +19,9 @@ class MarketClientPerformance(MarketClient):
         self.__kwargs["performance_test"] = True
         super(MarketClientPerformance, self).__init__(**self.__kwargs)
 
-    def get_pricedepth(self, symbol: 'str', depth_type: 'str', depth_size: 'int' = None) -> PriceDepth:
+    def get_pricedepth(
+        self, symbol: "str", depth_type: "str", depth_size: "int" = None
+    ) -> PriceDepth:
         """
         Get the Market Depth of a symbol.
 
@@ -32,8 +33,18 @@ class MarketClientPerformance(MarketClient):
         """
 
         check_symbol(symbol)
-        check_in_list(depth_type, [DepthStep.STEP0, DepthStep.STEP1, DepthStep.STEP2, DepthStep.STEP3, DepthStep.STEP4,
-                                   DepthStep.STEP5], "depth_type")
+        check_in_list(
+            depth_type,
+            [
+                DepthStep.STEP0,
+                DepthStep.STEP1,
+                DepthStep.STEP2,
+                DepthStep.STEP3,
+                DepthStep.STEP4,
+                DepthStep.STEP5,
+            ],
+            "depth_type",
+        )
         params = {
             "symbol": symbol,
             "type": depth_type,
@@ -41,7 +52,10 @@ class MarketClientPerformance(MarketClient):
         }
 
         from huobi.service.market.get_pricedepth import GetPriceDepthService
-        ret_data, req_cost, cost_manual = GetPriceDepthService(params).request(**self.__kwargs)
+
+        ret_data, req_cost, cost_manual = GetPriceDepthService(params).request(
+            **self.__kwargs
+        )
 
         if depth_size is not None:
             if (ret_data.bids is not None) and (len(ret_data.bids) > depth_size):
@@ -51,4 +65,3 @@ class MarketClientPerformance(MarketClient):
                 ret_data.asks = ret_data.asks[0:depth_size]
 
         return ret_data, req_cost, cost_manual
-

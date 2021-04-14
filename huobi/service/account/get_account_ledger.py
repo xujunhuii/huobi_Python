@@ -4,9 +4,7 @@ from huobi.model.account import *
 from huobi.utils import *
 
 
-
 class GetAccountLedgerService:
-
     def __init__(self, params):
         self.params = params
 
@@ -17,10 +15,6 @@ class GetAccountLedgerService:
             data_list = dict_data.get("data", [])
             return default_parse_list_dict(data_list, AccountLedger, [])
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET_SIGN, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET_SIGN, channel, self.params, parse
+        )

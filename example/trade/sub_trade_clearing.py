@@ -1,9 +1,8 @@
-
 from huobi.client.trade import TradeClient
 from huobi.constant import *
 
 
-def callback(obj_event: 'TradeClearingEvent'):
+def callback(obj_event: "TradeClearingEvent"):
     obj_event.print_object()
 
 

@@ -18,6 +18,7 @@ class EtfSwapConfig:
         unit_price_list: ETF constitution in format of amount and currency.
 
     """
+
     def __init__(self):
         self.etf_name = ""
         self.etf_status = EtfStatus.INVALID
@@ -31,16 +32,29 @@ class EtfSwapConfig:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.etf_name, format_data + "ETF Name")
         PrintBasic.print_basic(self.etf_status, format_data + "ETF Status")
 
-        PrintBasic.print_basic(self.purchase_fee_rate, format_data + "Purchase Fee Rate")
-        PrintBasic.print_basic(self.purchase_max_amount, format_data + "Purchase Max Amount")
-        PrintBasic.print_basic(self.purchase_min_amount, format_data + "Purchase Min Amount")
+        PrintBasic.print_basic(
+            self.purchase_fee_rate, format_data + "Purchase Fee Rate"
+        )
+        PrintBasic.print_basic(
+            self.purchase_max_amount, format_data + "Purchase Max Amount"
+        )
+        PrintBasic.print_basic(
+            self.purchase_min_amount, format_data + "Purchase Min Amount"
+        )
 
-        PrintBasic.print_basic(self.redemption_fee_rate, format_data + "Redemption Fee Rate")
-        PrintBasic.print_basic(self.redemption_max_amount, format_data + "Redemption Max Amount")
-        PrintBasic.print_basic(self.redemption_min_amount, format_data + "Redemption Min Amount")
+        PrintBasic.print_basic(
+            self.redemption_fee_rate, format_data + "Redemption Fee Rate"
+        )
+        PrintBasic.print_basic(
+            self.redemption_max_amount, format_data + "Redemption Max Amount"
+        )
+        PrintBasic.print_basic(
+            self.redemption_min_amount, format_data + "Redemption Min Amount"
+        )
         print()
         if len(self.unit_price):
             for row in self.unit_price:

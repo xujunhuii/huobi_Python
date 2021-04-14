@@ -5,7 +5,6 @@ from huobi.utils import *
 
 
 class GetExchangeSymbolsService:
-
     def __init__(self, params):
         self.params = params
 
@@ -16,4 +15,6 @@ class GetExchangeSymbolsService:
             data_list = dict_data.get("data", [])
             return default_parse_list_dict(data_list, Symbol, [])
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET, channel, self.params, parse)
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET, channel, self.params, parse
+        )

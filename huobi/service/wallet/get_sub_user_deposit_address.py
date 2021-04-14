@@ -5,7 +5,6 @@ from huobi.utils import *
 
 
 class GetSubUserDepositAddressService:
-
     def __init__(self, params):
         self.params = params
 
@@ -16,7 +15,6 @@ class GetSubUserDepositAddressService:
             json_data_list = dict_data.get("data", [])
             return default_parse_list_dict(json_data_list, ChainDepositAddress, [])
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET_SIGN, channel, self.params, parse)
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET_SIGN, channel, self.params, parse
+        )

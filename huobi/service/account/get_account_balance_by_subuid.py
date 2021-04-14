@@ -4,7 +4,6 @@ from huobi.model.account import *
 
 
 class GetAccountBalanceBySubUidService:
-
     def __init__(self, params):
         self.params = params
 
@@ -19,4 +18,6 @@ class GetAccountBalanceBySubUidService:
             data_list = dict_data.get("data", [])
             return AccountBalance.json_parse_list(data_list)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET_SIGN, get_channel(), self.params, parse)
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET_SIGN, get_channel(), self.params, parse
+        )

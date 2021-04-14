@@ -21,10 +21,6 @@ class SubMbpIncreaseService:
         def parse(dict_data):
             return MbpIncreaseEvent.json_parse(dict_data)
 
-        SubscribeClient(**kwargs).execute_subscribe_mbp(subscription,
-                                            parse,
-                                            callback,
-                                            error_handler)
-
-
-
+        SubscribeClient(**kwargs).execute_subscribe_mbp(
+            subscription, parse, callback, error_handler
+        )

@@ -16,5 +16,6 @@ class SubUidManagement:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.subUid, format_data + "subUid")
         PrintBasic.print_basic(self.userState, format_data + "userState")

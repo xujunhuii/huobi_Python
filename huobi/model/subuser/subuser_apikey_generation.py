@@ -19,6 +19,7 @@ class SubuserApikeyGeneration:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.accessKey, format_data + "accessKey")
         PrintBasic.print_basic(self.secretKey, format_data + "secretKey")
         PrintBasic.print_basic(self.note, format_data + "note")

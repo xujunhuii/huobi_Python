@@ -5,7 +5,6 @@ from huobi.utils import *
 
 
 class GetOrdersService:
-
     def __init__(self, params):
         self.params = params
 
@@ -16,10 +15,6 @@ class GetOrdersService:
             data_list = dict_data.get("data", [])
             return Order.json_parse_list(data_list)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET_SIGN, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET_SIGN, channel, self.params, parse
+        )

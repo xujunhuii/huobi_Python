@@ -16,5 +16,6 @@ class AccountTransferResult:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.transact_id, format_data + "TransactionId")
         PrintBasic.print_basic(self.transact_time, format_data + "TransactionTime")

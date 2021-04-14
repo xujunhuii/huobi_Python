@@ -22,10 +22,8 @@ class GeneralRepayLoanResult:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.repayId, format_data + "repayId")
         PrintBasic.print_basic(self.repayTime, format_data + "repayTime")
 
         print()
-
-
-

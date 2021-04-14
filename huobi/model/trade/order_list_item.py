@@ -1,5 +1,5 @@
-
 from huobi.constant import *
+
 
 class OrderListItem:
     """
@@ -32,9 +32,9 @@ class OrderListItem:
         self.stop_price = 0.0
         self.operator = ""
 
-
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.id, format_data + "ID")
         PrintBasic.print_basic(self.symbol, format_data + "Symbol")
         PrintBasic.print_basic(self.account_id, format_data + "Account Id")
@@ -47,9 +47,9 @@ class OrderListItem:
         PrintBasic.print_basic(self.state, format_data + "Order State")
         PrintBasic.print_basic(self.canceled_at, format_data + "Cancel Time")
         PrintBasic.print_basic(self.filled_amount, format_data + "Filled Amount")
-        PrintBasic.print_basic(self.filled_cash_amount, format_data + "Filled Cash Amount")
+        PrintBasic.print_basic(
+            self.filled_cash_amount, format_data + "Filled Cash Amount"
+        )
         PrintBasic.print_basic(self.filled_fees, format_data + "Filled Fees")
         PrintBasic.print_basic(self.stop_price, format_data + "Stop Price")
         PrintBasic.print_basic(self.operator, format_data + "Operator")
-
-

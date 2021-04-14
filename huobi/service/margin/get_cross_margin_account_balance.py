@@ -4,9 +4,7 @@ from huobi.model.margin import *
 from huobi.utils import *
 
 
-
 class GetCrossMarginAccountBalanceService:
-
     def __init__(self, params):
         self.params = params
 
@@ -16,10 +14,6 @@ class GetCrossMarginAccountBalanceService:
         def parse(dict_data):
             return CrossMarginAccountBalance.json_parse(dict_data.get("data", {}))
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET_SIGN, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET_SIGN, channel, self.params, parse
+        )

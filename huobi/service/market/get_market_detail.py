@@ -4,9 +4,7 @@ from huobi.model.market import *
 from huobi.utils import *
 
 
-
 class GetMarketDetailService:
-
     def __init__(self, params):
         self.params = params
 
@@ -17,10 +15,6 @@ class GetMarketDetailService:
             tick = dict_data.get("tick", {})
             return default_parse(tick, MarketDetail)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET, channel, self.params, parse
+        )

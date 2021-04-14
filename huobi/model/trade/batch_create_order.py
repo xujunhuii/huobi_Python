@@ -9,6 +9,7 @@ class BatchCreateOrder:
         err_msg: The number of crypto asset transferred in its minimum unit.
 
     """
+
     def __init__(self):
         self.order_id = 0
         self.client_order_id = ""
@@ -17,6 +18,7 @@ class BatchCreateOrder:
 
     def print_object(self, format_data=""):
         from huobi.utils import PrintBasic
+
         PrintBasic.print_basic(self.order_id, format_data + "Order Id")
         PrintBasic.print_basic(self.client_order_id, format_data + "Client Order Id")
         PrintBasic.print_basic(self.err_code, format_data + "Error Code")

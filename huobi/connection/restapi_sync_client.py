@@ -8,9 +8,7 @@ from huobi.utils import *
 from huobi.exception.huobi_api_exception import HuobiApiException
 
 
-
 class RestApiSyncClient(object):
-
     def __init__(self, **kwargs):
         """
         Create the request client instance.
@@ -30,14 +28,18 @@ class RestApiSyncClient(object):
             logger = logging.getLogger("huobi-client")
             logger.setLevel(level=logging.INFO)
             handler = logging.StreamHandler()
-            handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+            handler.setFormatter(
+                logging.Formatter(
+                    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+                )
+            )
             logger.addHandler(handler)
 
     def __create_request_by_get(self, url, builder):
         request = RestApiRequest()
         request.method = "GET"
         request.host = self.__server_url
-        request.header.update({'Content-Type': 'application/json'})
+        request.header.update({"Content-Type": "application/json"})
         request.url = url + builder.build_url()
         return request
 
@@ -45,9 +47,15 @@ class RestApiSyncClient(object):
         request = RestApiRequest()
         request.method = "POST"
         request.host = self.__server_url
-        create_signature(self.__api_key, self.__secret_key, request.method, request.host + url, builder)
-        request.header.update({'Content-Type': 'application/json'})
-        if (len(builder.post_list)):  # specify for case : /v1/order/batch-orders
+        create_signature(
+            self.__api_key,
+            self.__secret_key,
+            request.method,
+            request.host + url,
+            builder,
+        )
+        request.header.update({"Content-Type": "application/json"})
+        if len(builder.post_list):  # specify for case : /v1/order/batch-orders
             request.post_body = builder.post_list
         else:
             request.post_body = builder.post_map
@@ -58,7 +66,13 @@ class RestApiSyncClient(object):
         request = RestApiRequest()
         request.method = "GET"
         request.host = self.__server_url
-        create_signature(self.__api_key, self.__secret_key, request.method, request.host + url, builder)
+        create_signature(
+            self.__api_key,
+            self.__secret_key,
+            request.method,
+            request.host + url,
+            builder,
+        )
         request.header.update({"Content-Type": "application/x-www-form-urlencoded"})
         request.url = url + builder.build_url()
         return request
@@ -73,8 +87,9 @@ class RestApiSyncClient(object):
                 for key, value in params.items():
                     builder.put_post(key, value)
             else:
-                raise HuobiApiException(HuobiApiException.EXEC_ERROR,
-                                        "[error] undefined HTTP method")
+                raise HuobiApiException(
+                    HuobiApiException.EXEC_ERROR, "[error] undefined HTTP method"
+                )
 
         if method == HttpMethod.GET:
             request = self.__create_request_by_get(url, builder)
@@ -85,7 +100,10 @@ class RestApiSyncClient(object):
         elif method == HttpMethod.POST:
             request = self.__create_request_by_post_with_signature(url, builder)
         else:
-            raise HuobiApiException(HuobiApiException.INPUT_ERROR, "[Input] " + method + "  is invalid http method")
+            raise HuobiApiException(
+                HuobiApiException.INPUT_ERROR,
+                "[Input] " + method + "  is invalid http method",
+            )
 
         request.json_parser = parse
 
@@ -94,6 +112,7 @@ class RestApiSyncClient(object):
     """
     for post batch operation, such as batch create orders[ /v1/order/batch-orders ]
     """
+
     def create_request_post_batch(self, method, url, params, parse):
         builder = UrlParamsBuilder()
         if params and len(params):
@@ -101,8 +120,9 @@ class RestApiSyncClient(object):
                 if isinstance(params, list):
                     builder.post_list = params
             else:
-                raise HuobiApiException(HuobiApiException.EXEC_ERROR,
-                                        "[error] undefined HTTP method")
+                raise HuobiApiException(
+                    HuobiApiException.EXEC_ERROR, "[error] undefined HTTP method"
+                )
 
         request = self.__create_request_by_post_with_signature(url, builder)
         request.json_parser = parse
@@ -132,9 +152,12 @@ class RestApiSyncClient(object):
     """
     for post batch operation, such as batch create orders[ /v1/order/batch-orders ]
     """
+
     def request_process_post_batch(self, method, url, params, parse):
         if self.__performance_test is not None and self.__performance_test is True:
-            return self.request_process_post_batch_performance(method, url, params, parse)
+            return self.request_process_post_batch_performance(
+                method, url, params, parse
+            )
         else:
             return self.request_process_post_batch_product(method, url, params, parse)
 
@@ -151,4 +174,3 @@ class RestApiSyncClient(object):
             return call_sync_perforence_test(request)
 
         return None, 0, 0
-

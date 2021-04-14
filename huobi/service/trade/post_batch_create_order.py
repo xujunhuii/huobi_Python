@@ -3,8 +3,8 @@ from huobi.constant import *
 from huobi.model.trade.batch_create_order import BatchCreateOrder
 from huobi.utils import *
 
-class PostBatchCreateOrderService:
 
+class PostBatchCreateOrderService:
     def __init__(self, params):
         self.params = params
 
@@ -15,10 +15,6 @@ class PostBatchCreateOrderService:
             data = dict_data.get("data", [])
             return default_parse_list_dict(data, BatchCreateOrder, [])
 
-        return RestApiSyncClient(**kwargs).request_process_post_batch(HttpMethod.POST_SIGN, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process_post_batch(
+            HttpMethod.POST_SIGN, channel, self.params, parse
+        )

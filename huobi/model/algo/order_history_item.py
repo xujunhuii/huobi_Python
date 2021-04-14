@@ -36,6 +36,7 @@ class OrderHistoryItem:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.orderOrigTime, format_data + "")
         PrintBasic.print_basic(self.lastActTime, format_data + "")
         PrintBasic.print_basic(self.symbol, format_data + "")

@@ -2,7 +2,7 @@ from huobi.client.account import AccountClient
 from huobi.constant import *
 
 
-def callback(account_balance_req: 'AccountBalanceReq'):
+def callback(account_balance_req: "AccountBalanceReq"):
     account_balance_req.print_object()
 
 

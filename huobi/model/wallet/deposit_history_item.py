@@ -16,6 +16,7 @@ class DepositHistoryItem:
          created_timestamp: The UNIX formatted timestamp in UTC for the transfer creation.
          updated_timestamp: The UNIX formatted timestamp in UTC for the transfer's latest update.
      """
+
     def __init__(self):
         self.id = 0
         self.currency = ""
@@ -30,6 +31,7 @@ class DepositHistoryItem:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.id, format_data + "ID")
         PrintBasic.print_basic(self.currency, format_data + "Currency")
         PrintBasic.print_basic(self.chain, format_data + "Chain")

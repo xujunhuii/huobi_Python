@@ -1,9 +1,8 @@
-
 from huobi.client.trade import TradeClient
 from huobi.constant import *
 
 
-def callback(upd_event: 'OrderUpdateEvent'):
+def callback(upd_event: "OrderUpdateEvent"):
     print("---- order update : ----")
     upd_event.print_object()
     print()

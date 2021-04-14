@@ -3,7 +3,6 @@ import urllib.parse
 
 
 class UrlParamsBuilder(object):
-
     def __init__(self):
         self.param_map = dict()
         self.post_map = dict()

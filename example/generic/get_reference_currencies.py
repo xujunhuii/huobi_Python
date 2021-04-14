@@ -10,4 +10,3 @@ LogInfo.output_list(list_obj)
 
 list_obj = generic_client.get_reference_currencies(currency="usdt")
 LogInfo.output_list(list_obj)
-

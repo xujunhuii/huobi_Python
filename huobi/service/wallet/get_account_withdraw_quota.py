@@ -5,7 +5,6 @@ from huobi.utils import *
 
 
 class GetAccountWithdrawQuotaService:
-
     def __init__(self, params):
         self.params = params
 
@@ -17,10 +16,6 @@ class GetAccountWithdrawQuotaService:
             chains = data.get("chains", [])
             return default_parse_list_dict(chains, WithdrawQuota)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET_SIGN, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET_SIGN, channel, self.params, parse
+        )

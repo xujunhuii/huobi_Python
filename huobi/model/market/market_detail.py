@@ -27,6 +27,7 @@ class MarketDetail:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.id, format_data + "ID")
         PrintBasic.print_basic(self.open, format_data + "Open")
         PrintBasic.print_basic(self.close, format_data + "Close")

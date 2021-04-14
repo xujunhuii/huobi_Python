@@ -2,8 +2,7 @@ from huobi.client.market import MarketClient
 from huobi.model.market import *
 
 
-
-def callback(obj_event: 'MarketDetailReq'):
+def callback(obj_event: "MarketDetailReq"):
     obj_event.print_object()
     print()
 

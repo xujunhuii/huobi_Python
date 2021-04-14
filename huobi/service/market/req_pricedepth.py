@@ -27,10 +27,6 @@ class ReqPriceDepthService:
             price_depth_event.data = price_depth_obj
             return price_depth_event
 
-        WebSocketReqClient(**kwargs).execute_subscribe_v1(subscription,
-                                            parse,
-                                            callback,
-                                            error_handler)
-
-
-
+        WebSocketReqClient(**kwargs).execute_subscribe_v1(
+            subscription, parse, callback, error_handler
+        )

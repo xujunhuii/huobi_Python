@@ -5,7 +5,6 @@ from huobi.utils import *
 
 
 class GetAccountDepositAddressService:
-
     def __init__(self, params):
         self.params = params
 
@@ -16,10 +15,6 @@ class GetAccountDepositAddressService:
             data_list = dict_data.get("data", [])
             return default_parse_list_dict(data_list, ChainDepositAddress)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET_SIGN, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET_SIGN, channel, self.params, parse
+        )

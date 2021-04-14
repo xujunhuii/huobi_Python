@@ -19,16 +19,16 @@ class ReqCandleStickService:
 
         def subscription(connection):
             for symbol in symbol_list:
-                connection.send(request_kline_channel(symbol, interval, from_ts_second, end_ts_second))
+                connection.send(
+                    request_kline_channel(
+                        symbol, interval, from_ts_second, end_ts_second
+                    )
+                )
                 time.sleep(0.01)
 
         def parse(dict_data):
             return default_parse(dict_data, CandlestickReq, Candlestick)
 
-        WebSocketReqClient(**kwargs).execute_subscribe_v1(subscription,
-                                            parse,
-                                            callback,
-                                            error_handler)
-
-
-
+        WebSocketReqClient(**kwargs).execute_subscribe_v1(
+            subscription, parse, callback, error_handler
+        )

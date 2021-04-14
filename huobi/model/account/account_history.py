@@ -26,6 +26,7 @@ class AccountHistory:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.account_id, format_data + "Account Id")
         PrintBasic.print_basic(self.currency, format_data + "Currency")
         PrintBasic.print_basic(self.transact_amt, format_data + "Transact Amount")

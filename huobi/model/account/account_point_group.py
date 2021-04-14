@@ -20,6 +20,7 @@ class AccountPointGroup:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.groupId, format_data + "Group Id")
         PrintBasic.print_basic(self.expiryDate, format_data + "Expiration date")
         PrintBasic.print_basic(self.remainAmt, format_data + "Remain Amount")

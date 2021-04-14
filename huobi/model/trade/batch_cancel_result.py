@@ -13,5 +13,10 @@ class BatchCancelResult:
         self.failed = []
 
     def print_object(self, format_data=""):
-        print("Success Order Counts", len(self.success), " Success Order Ids : ", self.success)
+        print(
+            "Success Order Counts",
+            len(self.success),
+            " Success Order Ids : ",
+            self.success,
+        )
         print("Fail Order Counts", len(self.failed), " Fail Order Ids : ", self.failed)

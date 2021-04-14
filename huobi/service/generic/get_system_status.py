@@ -3,7 +3,6 @@ from huobi.constant.system import HttpMethod
 
 
 class GetSystemStatusService:
-
     def __init__(self, params):
         self.params = params
 
@@ -14,10 +13,6 @@ class GetSystemStatusService:
         def parse(dict_data):
             return dict_data
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET, channel, self.params, parse
+        )

@@ -17,7 +17,6 @@ class MbpReq:
 
         self.data = Mbp()
 
-
     @staticmethod
     def json_parse(data_json):
         mbp_event = MbpReq()
@@ -30,6 +29,7 @@ class MbpReq:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.rep, format_data + "Topic")
         PrintBasic.print_basic(self.id, format_data + "Timestamp")
 

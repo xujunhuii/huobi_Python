@@ -1,14 +1,12 @@
-
 from huobi.client.market import MarketClient
 from huobi.constant import *
 
 
-
-def callback(price_depth_event: 'PriceDepthEvent'):
+def callback(price_depth_event: "PriceDepthEvent"):
     price_depth_event.print_object()
 
 
-def error(e: 'HuobiApiException'):
+def error(e: "HuobiApiException"):
     print(e.error_code + e.error_message)
 
 

@@ -5,7 +5,6 @@ from huobi.model.algo import *
 
 
 class PostCancelOrderService:
-
     def __init__(self, params):
         self.params = params
 
@@ -17,4 +16,6 @@ class PostCancelOrderService:
             data = dict_data.get("data", {})
             return default_parse_fill_directly(data, CancelOrderResult)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.POST_SIGN, channel, self.params, parse)
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.POST_SIGN, channel, self.params, parse
+        )

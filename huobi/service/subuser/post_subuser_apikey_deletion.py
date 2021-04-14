@@ -3,7 +3,6 @@ from huobi.constant.system import HttpMethod
 
 
 class PostSubuserApikeyDeletionService:
-
     def __init__(self, params):
         self.params = params
 
@@ -14,4 +13,6 @@ class PostSubuserApikeyDeletionService:
         def parse(dict_data):
             return dict_data
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.POST_SIGN, channel, self.params, parse)
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.POST_SIGN, channel, self.params, parse
+        )

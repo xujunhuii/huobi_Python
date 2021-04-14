@@ -4,9 +4,7 @@ from huobi.model.market import *
 from huobi.utils import *
 
 
-
 class GetCandleStickService:
-
     def __init__(self, params):
         self.params = params
 
@@ -16,10 +14,6 @@ class GetCandleStickService:
         def parse(dict_data):
             return default_parse_list_dict(dict_data.get("data", []), Candlestick)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET, channel, self.params, parse
+        )

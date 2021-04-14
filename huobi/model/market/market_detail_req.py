@@ -1,5 +1,6 @@
 from huobi.model.market.market_detail import MarketDetail
 
+
 class MarketDetailReq:
     """
      The 24H trade statistics received by request of trade statistics only once.
@@ -17,6 +18,7 @@ class MarketDetailReq:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.ts, format_data + "Timestamp")
         PrintBasic.print_basic(self.rep, format_data + "Channel")
         self.data.print_object()

@@ -20,9 +20,9 @@ class OrderDetailReq:
         self.cid = ""
         self.data = OrderListItem()
 
-
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.ts, format_data + "Timestamp")
         PrintBasic.print_basic(self.cid, format_data + "Client Req ID")
         PrintBasic.print_basic(self.topic, format_data + "Topic")

@@ -42,6 +42,7 @@ class LoanOrder:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.currency, format_data + "Currency")
         PrintBasic.print_basic(self.deduct_rate, format_data + "Deduct Rate")
         PrintBasic.print_basic(self.paid_point, format_data + "Paid Point")

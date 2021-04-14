@@ -5,7 +5,6 @@ from huobi.utils import *
 
 
 class GetBalanceService:
-
     def __init__(self, params):
         self.params = params
 
@@ -21,7 +20,9 @@ class GetBalanceService:
             balance_list = data.get("list", [])
             return default_parse_list_dict(balance_list, Balance, [])
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET_SIGN, get_channel(), self.params, parse)
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET_SIGN, get_channel(), self.params, parse
+        )
 
     def get_request(self, **kwargs):
         account_id = self.params["account-id"]
@@ -35,4 +36,6 @@ class GetBalanceService:
             balance_list = data.get("list", [])
             return default_parse_list_dict(balance_list, Balance, [])
 
-        return RestApiSyncClient(**kwargs).create_request(HttpMethod.GET_SIGN, get_channel(), self.params, parse)
+        return RestApiSyncClient(**kwargs).create_request(
+            HttpMethod.GET_SIGN, get_channel(), self.params, parse
+        )

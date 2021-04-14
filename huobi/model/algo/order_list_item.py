@@ -50,6 +50,7 @@ class OrderListItem:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.eventType, format_data + "Event Type")
         PrintBasic.print_basic(self.symbol, format_data + "Symbol")
         PrintBasic.print_basic(self.orderId, format_data + "OrderId")
@@ -70,4 +71,6 @@ class OrderListItem:
         PrintBasic.print_basic(self.clientOrderId, format_data + "Client Order Id")
         PrintBasic.print_basic(self.orderCreateTime, format_data + "Order Create Time")
         PrintBasic.print_basic(self.orderStatus, format_data + "Order Status")
-        PrintBasic.print_basic(self.trailingRate, format_data + "Trailing Rate (Trailing Order Only)")
+        PrintBasic.print_basic(
+            self.trailingRate, format_data + "Trailing Rate (Trailing Order Only)"
+        )

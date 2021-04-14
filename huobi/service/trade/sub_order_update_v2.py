@@ -21,15 +21,6 @@ class SubOrderUpdateV2Service:
         def parse(dict_data):
             return default_parse(dict_data, OrderUpdateEvent, OrderUpdate)
 
-        SubscribeClient(**kwargs).execute_subscribe_v2(subscription,
-                                            parse,
-                                            callback,
-                                            error_handler,
-                                            is_trade=True)
-
-
-
-
-
-
-
+        SubscribeClient(**kwargs).execute_subscribe_v2(
+            subscription, parse, callback, error_handler, is_trade=True
+        )

@@ -28,5 +28,6 @@ class TradeClearingEvent:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.ch, format_data + "Channel")
         self.data.print_object()

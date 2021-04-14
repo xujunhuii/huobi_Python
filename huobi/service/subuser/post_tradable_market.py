@@ -14,4 +14,6 @@ class PostTradableMarketService:
         def parse(dict_data):
             return default_parse_list_dict(dict_data.get("data", {}), TradeMarket)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.POST_SIGN, channel, self.params, parse)
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.POST_SIGN, channel, self.params, parse
+        )

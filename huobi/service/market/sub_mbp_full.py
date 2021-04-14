@@ -21,7 +21,6 @@ class SubMbpFullService:
         def parse(dict_data):
             return MbpFullEvent.json_parse(dict_data)
 
-        SubscribeClient(**kwargs).execute_subscribe_v1(subscription,
-                                                       parse,
-                                                       callback,
-                                                       error_handler)
+        SubscribeClient(**kwargs).execute_subscribe_v1(
+            subscription, parse, callback, error_handler
+        )

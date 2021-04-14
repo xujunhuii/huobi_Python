@@ -1,4 +1,3 @@
-
 class HuobiApiException(Exception):
 
     RUNTIME_ERROR = "RuntimeError"

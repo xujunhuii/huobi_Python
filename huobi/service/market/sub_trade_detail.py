@@ -23,10 +23,6 @@ class SubTradeDetailService:
             trade_detail_event.ch = dict_data.get("ch", "")
             return trade_detail_event
 
-        SubscribeClient(**kwargs).execute_subscribe_v1(subscription,
-                                            parse,
-                                            callback,
-                                            error_handler)
-
-
-
+        SubscribeClient(**kwargs).execute_subscribe_v1(
+            subscription, parse, callback, error_handler
+        )

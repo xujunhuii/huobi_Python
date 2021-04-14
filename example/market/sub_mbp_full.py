@@ -2,11 +2,11 @@ from huobi.client.market import MarketClient
 from huobi.constant import *
 
 
-def callback(mbp_event: 'MbpFullEvent'):
+def callback(mbp_event: "MbpFullEvent"):
     mbp_event.print_object()
 
 
-def error(e: 'HuobiApiException'):
+def error(e: "HuobiApiException"):
     print(e.error_code + e.error_message)
 
 

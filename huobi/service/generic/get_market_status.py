@@ -5,7 +5,6 @@ from huobi.utils import *
 
 
 class GetMarketStatusService:
-
     def __init__(self, params):
         self.params = params
 
@@ -15,4 +14,6 @@ class GetMarketStatusService:
         def parse(dict_data):
             return default_parse(dict_data.get("data", {}), MarketStatus)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET, channel, self.params, parse)
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET, channel, self.params, parse
+        )

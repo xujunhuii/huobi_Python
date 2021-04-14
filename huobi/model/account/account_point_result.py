@@ -26,15 +26,22 @@ class AccountPointResult:
         if data_dict and len(data_dict):
             group_ids = data_dict.get("groupIds")
             data_dict.pop("groupIds")
-            account_point_obj = default_parse(data_dict, AccountPointResult, AccountPointGroup)
-            account_point_obj.subtype = data_dict.get("subtype", data_dict.get("symbol"))
-            account_point_obj.list = default_parse_list_dict(group_ids, AccountPointGroup, [])
+            account_point_obj = default_parse(
+                data_dict, AccountPointResult, AccountPointGroup
+            )
+            account_point_obj.subtype = data_dict.get(
+                "subtype", data_dict.get("symbol")
+            )
+            account_point_obj.list = default_parse_list_dict(
+                group_ids, AccountPointGroup, []
+            )
             return account_point_obj
 
         return None
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.accountId, format_data + "Account ID")
         PrintBasic.print_basic(self.accountStatus, format_data + "Account Status")
         PrintBasic.print_basic(self.acctBalance, format_data + "Account Balance")

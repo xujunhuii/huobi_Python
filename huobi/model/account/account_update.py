@@ -26,10 +26,13 @@ class AccountUpdate:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.currency, format_data + "Currency")
         PrintBasic.print_basic(self.accountId, format_data + "Account ID")
         PrintBasic.print_basic(self.balance, format_data + "Balance")
         PrintBasic.print_basic(self.available, format_data + "Available")
         PrintBasic.print_basic(self.changeType, format_data + "Account Change Type")
-        PrintBasic.print_basic(self.accountType, format_data + "Account Balance Change Type")
+        PrintBasic.print_basic(
+            self.accountType, format_data + "Account Balance Change Type"
+        )
         PrintBasic.print_basic(self.changeTime, format_data + "Account Timestamp")

@@ -1,4 +1,3 @@
-
 class TransactFeeRate:
     """
     The transact fee rate.
@@ -20,6 +19,7 @@ class TransactFeeRate:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.symbol, format_data + "Symbol")
         PrintBasic.print_basic(self.makerFeeRate, format_data + "makerFeeRate")
         PrintBasic.print_basic(self.takerFeeRate, format_data + "takerFeeRate")

@@ -5,7 +5,6 @@ from huobi.model.subuser import *
 
 
 class GetUserApikeyInfoService:
-
     def __init__(self, params):
         self.params = params
 
@@ -15,4 +14,6 @@ class GetUserApikeyInfoService:
         def parse(dict_data):
             return default_parse_list_dict(dict_data.get("data", {}), UserApikeyInfo)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET_SIGN, channel, self.params, parse)
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET_SIGN, channel, self.params, parse
+        )

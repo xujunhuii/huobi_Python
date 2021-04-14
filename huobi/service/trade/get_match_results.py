@@ -5,7 +5,6 @@ from huobi.utils import *
 
 
 class GetMatchResultsService:
-
     def __init__(self, params):
         self.params = params
 
@@ -16,10 +15,6 @@ class GetMatchResultsService:
             data_list = dict_data.get("data", [])
             return default_parse_list_dict(data_list, MatchResult, [])
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET_SIGN, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET_SIGN, channel, self.params, parse
+        )

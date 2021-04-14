@@ -1,4 +1,3 @@
-
 class LoanInfo:
     """
     The margin rate define.
@@ -22,6 +21,7 @@ class LoanInfo:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.currency, format_data + "Currency")
         PrintBasic.print_basic(self.interest_rate, format_data + "Interest Rate")
         PrintBasic.print_basic(self.min_loan_amt, format_data + "Min Loan Amount")

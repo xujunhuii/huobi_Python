@@ -5,7 +5,6 @@ from huobi.model.algo import *
 
 
 class GetOrderHistoryService:
-
     def __init__(self, params):
         self.params = params
 
@@ -16,4 +15,6 @@ class GetOrderHistoryService:
             data = dict_data.get("data", {})
             return default_parse_list_dict(data, OrderHistoryItem)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET_SIGN, channel, self.params, parse)
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET_SIGN, channel, self.params, parse
+        )

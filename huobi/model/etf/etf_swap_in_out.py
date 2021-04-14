@@ -1,5 +1,3 @@
-
-
 class EtfSwapInOut:
     """
     :member
@@ -13,6 +11,7 @@ class EtfSwapInOut:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.code, format_data + "Return Code")
         PrintBasic.print_basic_bool(self.data, format_data + "Data")
         PrintBasic.print_basic(self.message, format_data + "Message")

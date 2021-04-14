@@ -3,7 +3,6 @@ from huobi.constant.system import HttpMethod
 
 
 class GetExchangeCurrenciesService:
-
     def __init__(self, params):
         self.params = params
 
@@ -14,10 +13,6 @@ class GetExchangeCurrenciesService:
             data_list = dict_data.get("data", [])
             return data_list if len(data_list) else []
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.GET, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.GET, channel, self.params, parse
+        )

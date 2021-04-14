@@ -4,7 +4,7 @@ from huobi.utils import *
 
 subuser_client = SubuserClient(api_key=g_api_key, secret_key=g_secret_key)
 
-subUids = '159284259'
+subUids = "159284259"
 accountType = SubuserTradePrivilegeType.MARGIN
 activation = SubUserTradeStatus.DEACTIVATED
 

@@ -8,6 +8,6 @@ LogInfo.output("---- Supported symbols ----")
 for symbol in list_obj.symbol_list:
     LogInfo.output(symbol.symbol)
 
-LogInfo.output("---- Supported currencies ----");
+LogInfo.output("---- Supported currencies ----")
 for currency in list_obj.currencies:
     LogInfo.output(currency)

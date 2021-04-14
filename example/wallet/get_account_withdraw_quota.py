@@ -1,4 +1,3 @@
-
 from huobi.client.wallet import WalletClient
 from huobi.constant import *
 from huobi.utils import *
@@ -10,8 +9,3 @@ LogInfo.output_list(list_obj)
 
 list_obj = wallet_client.get_account_withdraw_quota(currency="usdt")
 LogInfo.output_list(list_obj)
-
-
-
-
-

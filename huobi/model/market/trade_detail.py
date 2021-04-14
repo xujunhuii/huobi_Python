@@ -1,4 +1,3 @@
-
 class TradeDetail:
     """
     The trade information with price and amount etc.
@@ -18,10 +17,9 @@ class TradeDetail:
         self.ts = 0
         self.direction = ""
 
-
-
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.tradeId, format_data + "Trade Id")
         PrintBasic.print_basic(self.ts, format_data + "Trade Time")
         PrintBasic.print_basic(self.price, format_data + "Price")

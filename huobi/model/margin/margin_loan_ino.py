@@ -33,6 +33,7 @@ class MarginLoanInfo:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.symbol, format_data + "Symbol")
         if self.currencies and len(self.currencies):
             for currency_item in self.currencies:

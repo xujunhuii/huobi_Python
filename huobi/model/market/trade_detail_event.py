@@ -1,5 +1,3 @@
-
-
 class TradeDetailEvent:
     """
     The trade received by subscription of trade.
@@ -16,9 +14,9 @@ class TradeDetailEvent:
         self.ts = 0
         self.data = list()
 
-
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.ch, format_data + "Channel")
         PrintBasic.print_basic(self.id, format_data + "ID")
         PrintBasic.print_basic(self.ts, format_data + "Unix Time")

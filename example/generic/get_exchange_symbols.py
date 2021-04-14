@@ -8,6 +8,3 @@ if len(list_obj):
     for idx, row in enumerate(list_obj):
         LogInfo.output("------- number " + str(idx) + " -------")
         row.print_object()
-
-
-

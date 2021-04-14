@@ -28,51 +28,98 @@ class SubscribeClient(object):
             logger = logging.getLogger("huobi-client")
             logger.setLevel(level=logging.INFO)
             handler = logging.StreamHandler()
-            handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+            handler.setFormatter(
+                logging.Formatter(
+                    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+                )
+            )
             logger.addHandler(handler)
 
         self.__websocket_manage_list = list()
 
     def __create_websocket_manage(self, request):
-        manager = WebsocketManage(self.__api_key, self.__secret_key, self.__uri, request)
+        manager = WebsocketManage(
+            self.__api_key, self.__secret_key, self.__uri, request
+        )
         self.__websocket_manage_list.append(manager)
         manager.connect()
         SubscribeClient.subscribe_watch_dog.on_connection_created(manager)
 
-    def create_request(self, subscription_handler, parse, callback, error_handler, is_trade, is_mbp_feed=False):
+    def create_request(
+        self,
+        subscription_handler,
+        parse,
+        callback,
+        error_handler,
+        is_trade,
+        is_mbp_feed=False,
+    ):
         request = WebsocketRequest()
         request.subscription_handler = subscription_handler
         request.is_trading = is_trade
         request.is_mbp_feed = is_mbp_feed
-        request.auto_close = False  # subscribe need connection. websocket request need close request.
+        request.auto_close = (
+            False  # subscribe need connection. websocket request need close request.
+        )
         request.json_parser = parse
         request.update_callback = callback
         request.error_handler = error_handler
         return request
 
-    def create_request_v1(self, subscription_handler, parse, callback, error_handler, is_trade=False):
-        request = self.create_request(subscription_handler=subscription_handler, parse=parse, callback=callback,
-                                      error_handler=error_handler, is_trade=is_trade)
+    def create_request_v1(
+        self, subscription_handler, parse, callback, error_handler, is_trade=False
+    ):
+        request = self.create_request(
+            subscription_handler=subscription_handler,
+            parse=parse,
+            callback=callback,
+            error_handler=error_handler,
+            is_trade=is_trade,
+        )
         request.api_version = ApiVersion.VERSION_V1
         return request
 
-    def create_request_v2(self, subscription_handler, parse, callback, error_handler, is_trade=False):
-        request = self.create_request(subscription_handler=subscription_handler, parse=parse, callback=callback,
-                                      error_handler=error_handler, is_trade=is_trade)
+    def create_request_v2(
+        self, subscription_handler, parse, callback, error_handler, is_trade=False
+    ):
+        request = self.create_request(
+            subscription_handler=subscription_handler,
+            parse=parse,
+            callback=callback,
+            error_handler=error_handler,
+            is_trade=is_trade,
+        )
         request.api_version = ApiVersion.VERSION_V2
         return request
 
-    def execute_subscribe_v1(self, subscription_handler, parse, callback, error_handler, is_trade=False):
-        request = self.create_request_v1(subscription_handler, parse, callback, error_handler, is_trade)
+    def execute_subscribe_v1(
+        self, subscription_handler, parse, callback, error_handler, is_trade=False
+    ):
+        request = self.create_request_v1(
+            subscription_handler, parse, callback, error_handler, is_trade
+        )
         self.__create_websocket_manage(request)
 
-    def execute_subscribe_v2(self, subscription_handler, parse, callback, error_handler, is_trade=False):
-        request = self.create_request_v2(subscription_handler, parse, callback, error_handler, is_trade)
+    def execute_subscribe_v2(
+        self, subscription_handler, parse, callback, error_handler, is_trade=False
+    ):
+        request = self.create_request_v2(
+            subscription_handler, parse, callback, error_handler, is_trade
+        )
         self.__create_websocket_manage(request)
 
-    def execute_subscribe_mbp(self, subscription_handler, parse, callback, error_handler, is_trade=False,
-                              is_mbp_feed=True):
-        request = self.create_request(subscription_handler, parse, callback, error_handler, is_trade, is_mbp_feed)
+    def execute_subscribe_mbp(
+        self,
+        subscription_handler,
+        parse,
+        callback,
+        error_handler,
+        is_trade=False,
+        is_mbp_feed=True,
+    ):
+        request = self.create_request(
+            subscription_handler, parse, callback, error_handler, is_trade, is_mbp_feed
+        )
         self.__create_websocket_manage(request)
 
     def unsubscribe_all(self):

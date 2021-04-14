@@ -1,5 +1,3 @@
-
-
 class TradeDetailReq:
     """
     The trade received by subscription of trade.
@@ -15,6 +13,7 @@ class TradeDetailReq:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.rep, format_data + "Channel")
         print()
         if len(self.data):

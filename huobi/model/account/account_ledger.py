@@ -27,6 +27,7 @@ class AccountLedger:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.accountId, format_data + "Account ID")
         PrintBasic.print_basic(self.currency, format_data + "Currency")
         PrintBasic.print_basic(self.transactAmt, format_data + "Transaction Amount")

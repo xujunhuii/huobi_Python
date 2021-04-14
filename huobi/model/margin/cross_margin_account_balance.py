@@ -15,7 +15,6 @@ class CrossMarginAccountBalance:
         list: The balance list of the specified currency. The content is Balance class
     """
 
-
     def __init__(self):
         self.id = 0
         self.type = AccountType.INVALID
@@ -37,6 +36,7 @@ class CrossMarginAccountBalance:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.id, format_data + "Account ID")
         PrintBasic.print_basic(self.type, format_data + "Account Type")
         PrintBasic.print_basic(self.state, format_data + "Account State")

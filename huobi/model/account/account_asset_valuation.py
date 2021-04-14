@@ -14,5 +14,6 @@ class AccountAssetValuationResult:
 
     def print_object(self, format_data=""):
         from huobi.utils.print_mix_object import PrintBasic
+
         PrintBasic.print_basic(self.balance, format_data + "balance")
         PrintBasic.print_basic(self.timestamp, format_data + "timestamp")

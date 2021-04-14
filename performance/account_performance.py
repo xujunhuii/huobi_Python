@@ -1,11 +1,15 @@
 import asyncio
 import time
 
-from huobi.client.account import AccountClient, AccountBalance, get_default_server_url, AccountType
+from huobi.client.account import (
+    AccountClient,
+    AccountBalance,
+    get_default_server_url,
+    AccountType,
+)
 
 
 class AccountClientPerformance(AccountClient):
-
     def __init__(self, **kwargs):
         """
         Create the request client instance.
@@ -22,6 +26,7 @@ class AccountClientPerformance(AccountClient):
 
     def get_account_balance(self) -> list:
         from huobi.service.account.get_balance import GetBalanceService
+
         """
         Get the balance of a all accounts.
 
@@ -29,16 +34,25 @@ class AccountClientPerformance(AccountClient):
         """
         server_url = get_default_server_url(self.__kwargs.get("url"))
         tasks = []
-        accounts, req_cost_1, cost_manual_1  = super(AccountClientPerformance, self).get_accounts()
+        accounts, req_cost_1, cost_manual_1 = super(
+            AccountClientPerformance, self
+        ).get_accounts()
         start_time = time.time()
         account_balance_list = []
         account_balance_json_map = {}
         for account_item in accounts:
             balance_params = {"account-id": account_item.id}
-            balance_request = GetBalanceService(balance_params).get_request(**self.__kwargs)
+            balance_request = GetBalanceService(balance_params).get_request(
+                **self.__kwargs
+            )
             balance_url = server_url + balance_request.url
-            tasks.append(asyncio.ensure_future(
-                super(AccountClientPerformance, self).async_get_account_balance(balance_url, account_item.id, account_balance_json_map)))
+            tasks.append(
+                asyncio.ensure_future(
+                    super(AccountClientPerformance, self).async_get_account_balance(
+                        balance_url, account_item.id, account_balance_json_map
+                    )
+                )
+            )
 
         loop = asyncio.get_event_loop()
         try:
@@ -50,17 +64,25 @@ class AccountClientPerformance(AccountClient):
             pass
 
         for account_id, account_balance_json in account_balance_json_map.items():
-            account_balance = AccountBalance.json_parse(account_balance_json.get("data", {}))
+            account_balance = AccountBalance.json_parse(
+                account_balance_json.get("data", {})
+            )
             account_balance_list.append(account_balance)
 
         del account_balance_json_map
         del tasks
         end_time = time.time()
         async_balane_cost = round(end_time - start_time, 6)
-        return account_balance_list, req_cost_1 + async_balane_cost, cost_manual_1 + async_balane_cost
+        return (
+            account_balance_list,
+            req_cost_1 + async_balane_cost,
+            cost_manual_1 + async_balane_cost,
+        )
 
     def get_account_by_type_and_symbol(self, account_type, symbol):
-        accounts, req_cost, cost_manual = super(AccountClientPerformance, self).get_accounts()
+        accounts, req_cost, cost_manual = super(
+            AccountClientPerformance, self
+        ).get_accounts()
         if accounts and len(accounts):
             for account_obj in accounts:
                 if account_obj.type == account_type:

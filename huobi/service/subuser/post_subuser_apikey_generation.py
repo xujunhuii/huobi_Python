@@ -5,7 +5,6 @@ from huobi.model.subuser import *
 
 
 class PostSubuserApikeyGenerationService:
-
     def __init__(self, params):
         self.params = params
 
@@ -15,4 +14,6 @@ class PostSubuserApikeyGenerationService:
         def parse(dict_data):
             return default_parse(dict_data.get("data", {}), SubuserApikeyGeneration)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.POST_SIGN, channel, self.params, parse)
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.POST_SIGN, channel, self.params, parse
+        )

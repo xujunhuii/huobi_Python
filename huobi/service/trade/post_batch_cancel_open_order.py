@@ -5,7 +5,6 @@ from huobi.utils import *
 
 
 class PostBatchCancelOpenOrderService:
-
     def __init__(self, params):
         self.params = params
 
@@ -16,10 +15,6 @@ class PostBatchCancelOpenOrderService:
             data = dict_data.get("data", {})
             return default_parse(data, BatchCancelCount)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.POST_SIGN, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.POST_SIGN, channel, self.params, parse
+        )

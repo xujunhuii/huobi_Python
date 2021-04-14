@@ -5,7 +5,6 @@ from huobi.model.account import *
 
 
 class PostSubUidManagementService:
-
     def __init__(self, params):
         self.params = params
 
@@ -15,10 +14,6 @@ class PostSubUidManagementService:
         def parse(dict_data):
             return default_parse_list_dict(dict_data.get("data", {}), SubUidManagement)
 
-        return RestApiSyncClient(**kwargs).request_process(HttpMethod.POST_SIGN, channel, self.params, parse)
-
-
-
-
-
-
+        return RestApiSyncClient(**kwargs).request_process(
+            HttpMethod.POST_SIGN, channel, self.params, parse
+        )
