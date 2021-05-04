@@ -19,3 +19,4 @@ huobi/privateconfig.py
 *.zip
 
 .ipynb_checkpoints/*
+*.log
