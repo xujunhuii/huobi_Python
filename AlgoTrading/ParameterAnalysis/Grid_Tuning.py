@@ -106,7 +106,7 @@ def transact(
         ):
             if (
                 trading_selling_price < upper_bound
-                and trading_selling_price > last_price
+                and trading_selling_price > last_price * (1 + rate)
             ):
                 last_price = trading_selling_price
                 cash += n * trading_selling_price
@@ -150,11 +150,25 @@ def grid_trading(
     return records_df, final_profit
 
 
-FILENAME = "Binance_BTC_1m.csv"
-data = pd.read_csv(FILENAME)
-records_df, final_profit = grid_trading(
-    data, INTERVALS_FOR_RSV=9, INTERVAL_FOR_BOUNDS=24 * 60, SD_PARAMETER=3,
-)
+def speedy_grid_trading(
+    data, INTERVAL_FOR_BOUNDS, SD_PARAMETER,
+):
+    upper, _, lower = calc_bbands(data["Close"], INTERVAL_FOR_BOUNDS, SD_PARAMETER)
+    data["boll_upper"] = upper
+    data["boll_lower"] = lower
+    data = data.dropna()
+    data.reset_index(drop=True, inplace=True)
+    records = transact(data)
+    records_df = generate_records_df(records)
+    final_profit = get_final_profit(records_df)
+    return records_df, final_profit
+
+
+# FILENAME = "Binance_BTC_1m.csv"
+# data = pd.read_csv(FILENAME)
+# records_df, final_profit = grid_trading(
+#     data, INTERVALS_FOR_RSV=9, INTERVAL_FOR_BOUNDS=24 * 60, SD_PARAMETER=3,
+# )
 # records_df.to_excel("Transactions.xlsx")
 
 # print(final_profit)
