@@ -1,4 +1,5 @@
 import pandas as pd
+from utils import calc_bbands
 
 BOLL_UPPER = "boll_upper"
 BOLL_LOWER = "boll_lower"
@@ -21,14 +22,6 @@ def calc_RSV(prices, INTERVALS_FOR_RSV):
     return RSV
 
 
-def calc_bbands(prices, INTERVAL_FOR_BOUNDS, SD_PARAMETER):
-    middle_vals = prices.rolling(INTERVAL_FOR_BOUNDS).mean()
-    std_vals = prices.rolling(INTERVAL_FOR_BOUNDS).std(ddof=0)
-    upper_vals = middle_vals + SD_PARAMETER * std_vals
-    lower_vals = middle_vals - SD_PARAMETER * std_vals
-    return upper_vals, middle_vals, lower_vals
-
-
 def check_last_row(records_df):
     temp = records_df.tail(1)
     last_action = temp.iloc[0]["Action"]
@@ -48,7 +41,7 @@ def generate_records_df(records):
             "Profit",
             "LowerBound",
             "UpperBound",
-            "Rate",
+            "Grid",
             "Hour",
         ],
     )
@@ -56,12 +49,9 @@ def generate_records_df(records):
     return records_df
 
 
-def get_rate(lower_bound, upper_bound):
-    for n in range(N_GRID, 5, -5):
-        rate = pow(upper_bound / lower_bound, 1 / (n - 1)) - 1
-        if rate > FEE:
-            return rate
-    return FEE + 0.001
+def get_grid_arithmetic(lower_bound, upper_bound):
+    grid = (upper_bound - lower_bound) / 10
+    return grid
 
 
 def transact(
@@ -72,13 +62,13 @@ def transact(
         price = row[CLOSE]
         upper_bound = row[BOLL_UPPER]
         lower_bound = row[BOLL_LOWER]
-        rate = get_rate(lower_bound, upper_bound)
+        grid = get_grid_arithmetic(lower_bound, upper_bound)
         trading_buying_price = price * (1 + FEE)
         trading_selling_price = price * (1 - FEE)
 
         if n == 0 and (
             trading_buying_price < upper_bound
-            or trading_buying_price < last_price * (1 - rate)
+            or trading_buying_price < last_price - grid
         ):
             if trading_buying_price > lower_bound:
                 last_price = trading_buying_price
@@ -95,18 +85,18 @@ def transact(
                             round(profit),
                             lower_bound,
                             upper_bound,
-                            rate,
+                            grid,
                             time,
                         ]
                     )
 
         elif n > 0 and (
             trading_selling_price > lower_bound
-            or trading_selling_price > last_price * (1 + rate)
+            or trading_selling_price > last_price + grid
         ):
             if (
                 trading_selling_price < upper_bound
-                and trading_selling_price > last_price * (1 + rate)
+                and trading_selling_price > last_price + grid
             ):
                 last_price = trading_selling_price
                 cash += n * trading_selling_price
@@ -121,7 +111,7 @@ def transact(
                         round(profit),
                         lower_bound,
                         upper_bound,
-                        rate,
+                        grid,
                         time,
                     ]
                 )
@@ -145,9 +135,12 @@ def grid_trading(
     data = data.dropna()
     data.reset_index(drop=True, inplace=True)
     records = transact(data)
-    records_df = generate_records_df(records)
-    final_profit = get_final_profit(records_df)
-    return records_df, final_profit
+    if len(records) > 0:
+        records_df = generate_records_df(records)
+        final_profit = get_final_profit(records_df)
+        return records_df, final_profit
+    else:
+        return "No records", 0
 
 
 def speedy_grid_trading(
@@ -159,9 +152,12 @@ def speedy_grid_trading(
     data = data.dropna()
     data.reset_index(drop=True, inplace=True)
     records = transact(data)
-    records_df = generate_records_df(records)
-    final_profit = get_final_profit(records_df)
-    return records_df, final_profit
+    if len(records) > 0:
+        records_df = generate_records_df(records)
+        final_profit = get_final_profit(records_df)
+        return records_df, final_profit
+    else:
+        return "No records", 0
 
 
 # FILENAME = "Binance_BTC_1m.csv"
