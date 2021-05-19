@@ -35,14 +35,6 @@ def calc_ATRP(high, low, close, n=15 * 24 * 60):
     return average_true_range_percentage
 
 
-def check_last_row(records_df):
-    temp = records_df.tail(1)
-    last_action = temp.iloc[0]["Action"]
-    if last_action == "Buying":
-        records_df = records_df.iloc[:-1, :]
-    return records_df
-
-
 def generate_records_df(records):
     records_df = pd.DataFrame(
         records,
@@ -58,5 +50,22 @@ def generate_records_df(records):
             "Hour",
         ],
     )
-    records_df = check_last_row(records_df)
     return records_df
+
+
+def save_excel(records_df, FILENAME, METHOD_TAG):
+    if len(records_df) > 0:
+        FILE = FILENAME.split("/")[-1].split(".")[0]
+        EXCEL_NAME = f"./RESULT_EXCELS/{FILE}_{METHOD_TAG}.xlsx"
+        print(f"The transactions will be saved into {EXCEL_NAME} :) \n")
+        records_df.to_excel(EXCEL_NAME)
+
+
+def get_final_profit(df, data):
+    temp = df.tail(1).iloc[0]
+    last_data = data.tail(1).iloc[0]
+    if temp["Action"] == "Buying":
+        final_profit = (last_data["Close"] - temp["Price"]) * temp["n"] + temp["Profit"]
+    else:
+        final_profit = temp["Profit"]
+    return final_profit
