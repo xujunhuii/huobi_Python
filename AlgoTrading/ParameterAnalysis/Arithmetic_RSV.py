@@ -1,5 +1,5 @@
 import pandas as pd
-from utils import calc_bbands
+from utils import calc_bbands, check_last_row
 
 BOLL_UPPER = "boll_upper"
 BOLL_LOWER = "boll_lower"
@@ -22,18 +22,6 @@ def calc_RSV(prices, INTERVALS_FOR_RSV):
     return RSV
 
 
-def check_last_row(records_df):
-    print(records_df)
-    print(len(records_df))
-    if len(records_df) > 0:
-        print(records_df)
-        temp = records_df.tail(1)
-        last_action = temp.iloc[0]["Action"]
-        if last_action == "Buying":
-            records_df = records_df.iloc[:-1, :]
-    return records_df
-
-
 def generate_records_df(records):
     records_df = pd.DataFrame(
         records,
@@ -54,17 +42,17 @@ def generate_records_df(records):
     return records_df
 
 
-def get_grid_arithmetic(lower_bound, upper_bound, rsv, grid_number):
+def get_grid_arithmetic(lower_bound, upper_bound, rsv):
     if rsv != 1:
-        lower_grid = (upper_bound - lower_bound) * (1 - rsv) / (grid_number // 2)
+        lower_grid = (upper_bound - lower_bound) * (1 - rsv) / 5
         upper_grid = rsv / (1 - rsv) * lower_grid
     else:
-        lower_grid = upper_grid = (upper_bound - lower_bound) / grid_number
+        lower_grid = upper_grid = (upper_bound - lower_bound) / 10
     return lower_grid, upper_grid
 
 
 def transact(
-    data, n=0, cash=BEGINNING_CASH, last_price=0, grid_number=10,
+    data, n=0, cash=BEGINNING_CASH, last_price=0,
 ):
     for index, row in data.iterrows():
         time = row[TIMESTAMP]
@@ -72,9 +60,7 @@ def transact(
         rsv = row["RSV"]
         upper_bound = row[BOLL_UPPER]
         lower_bound = row[BOLL_LOWER]
-        lower_grid, upper_grid = get_grid_arithmetic(
-            lower_bound, upper_bound, rsv, grid_number
-        )
+        lower_grid, upper_grid = get_grid_arithmetic(lower_bound, upper_bound, rsv)
         trading_buying_price = price * (1 + FEE)
         trading_selling_price = price * (1 - FEE)
 
@@ -139,7 +125,7 @@ def get_final_profit(df):
 
 
 def grid_trading(
-    data, INTERVALS_FOR_RSV, INTERVAL_FOR_BOUNDS, SD_PARAMETER, GRID_NUMBER,
+    data, INTERVALS_FOR_RSV, INTERVAL_FOR_BOUNDS, SD_PARAMETER,
 ):
     RSV = calc_RSV(data["Close"], INTERVALS_FOR_RSV)
     data["RSV"] = RSV
@@ -148,7 +134,7 @@ def grid_trading(
     data["boll_lower"] = lower
     data = data.dropna()
     data.reset_index(drop=True, inplace=True)
-    records = transact(data, grid_number=GRID_NUMBER)
+    records = transact(data)
     if len(records) > 0:
         records_df = generate_records_df(records)
         final_profit = get_final_profit(records_df)

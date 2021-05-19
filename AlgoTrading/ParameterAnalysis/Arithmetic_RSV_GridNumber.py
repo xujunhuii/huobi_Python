@@ -1,5 +1,5 @@
 import pandas as pd
-from utils import calc_bbands
+from utils import calc_bbands, check_last_row
 
 BOLL_UPPER = "boll_upper"
 BOLL_LOWER = "boll_lower"
@@ -22,14 +22,6 @@ def calc_RSV(prices, INTERVALS_FOR_RSV):
     return RSV
 
 
-def check_last_row(records_df):
-    temp = records_df.tail(1)
-    last_action = temp.iloc[0]["Action"]
-    if last_action == "Buying":
-        records_df = records_df.iloc[:-1, :]
-    return records_df
-
-
 def generate_records_df(records):
     records_df = pd.DataFrame(
         records,
@@ -41,7 +33,8 @@ def generate_records_df(records):
             "Profit",
             "LowerBound",
             "UpperBound",
-            "Grid",
+            "LowerGrid",
+            "UpperGrid",
             "Hour",
         ],
     )
@@ -49,26 +42,33 @@ def generate_records_df(records):
     return records_df
 
 
-def get_grid_arithmetic(lower_bound, upper_bound):
-    grid = (upper_bound - lower_bound) / 10
-    return grid
+def get_grid_arithmetic(lower_bound, upper_bound, rsv, grid_number):
+    if rsv != 1:
+        lower_grid = (upper_bound - lower_bound) * (1 - rsv) / (grid_number // 2)
+        upper_grid = rsv / (1 - rsv) * lower_grid
+    else:
+        lower_grid = upper_grid = (upper_bound - lower_bound) / grid_number
+    return lower_grid, upper_grid
 
 
 def transact(
-    data, n=0, cash=BEGINNING_CASH, last_price=0,
+    data, n=0, cash=BEGINNING_CASH, last_price=0, grid_number=10,
 ):
     for index, row in data.iterrows():
         time = row[TIMESTAMP]
         price = row[CLOSE]
+        rsv = row["RSV"]
         upper_bound = row[BOLL_UPPER]
         lower_bound = row[BOLL_LOWER]
-        grid = get_grid_arithmetic(lower_bound, upper_bound)
+        lower_grid, upper_grid = get_grid_arithmetic(
+            lower_bound, upper_bound, rsv, grid_number
+        )
         trading_buying_price = price * (1 + FEE)
         trading_selling_price = price * (1 - FEE)
 
         if n == 0 and (
             trading_buying_price < upper_bound
-            or trading_buying_price < last_price - grid
+            or trading_buying_price < last_price - lower_grid
         ):
             if trading_buying_price > lower_bound:
                 last_price = trading_buying_price
@@ -85,18 +85,19 @@ def transact(
                             round(profit),
                             lower_bound,
                             upper_bound,
-                            grid,
+                            lower_grid,
+                            upper_grid,
                             time,
                         ]
                     )
 
         elif n > 0 and (
             trading_selling_price > lower_bound
-            or trading_selling_price > last_price + grid
+            or trading_selling_price > last_price + upper_grid
         ):
             if (
                 trading_selling_price < upper_bound
-                and trading_selling_price > last_price + grid
+                and trading_selling_price > last_price + upper_grid
             ):
                 last_price = trading_selling_price
                 cash += n * trading_selling_price
@@ -111,7 +112,8 @@ def transact(
                         round(profit),
                         lower_bound,
                         upper_bound,
-                        grid,
+                        lower_grid,
+                        upper_grid,
                         time,
                     ]
                 )
@@ -125,7 +127,7 @@ def get_final_profit(df):
 
 
 def grid_trading(
-    data, INTERVALS_FOR_RSV, INTERVAL_FOR_BOUNDS, SD_PARAMETER,
+    data, INTERVALS_FOR_RSV, INTERVAL_FOR_BOUNDS, SD_PARAMETER, GRID_NUMBER,
 ):
     RSV = calc_RSV(data["Close"], INTERVALS_FOR_RSV)
     data["RSV"] = RSV
@@ -134,7 +136,7 @@ def grid_trading(
     data["boll_lower"] = lower
     data = data.dropna()
     data.reset_index(drop=True, inplace=True)
-    records = transact(data)
+    records = transact(data, grid_number=GRID_NUMBER)
     if len(records) > 0:
         records_df = generate_records_df(records)
         final_profit = get_final_profit(records_df)
