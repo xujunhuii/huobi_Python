@@ -165,27 +165,31 @@ def grid_trading(
         return "No records", 0
 
 
-# FILES = [
-#     "./RESULT_EXCELS/Decreasing_Data.csv",
-#     "./RESULT_EXCELS/Increasing_Data.csv",
-#     "./RESULT_EXCELS/Mild_Fluctuate_Data.csv",
-#     "./RESULT_EXCELS/All_Data.csv",
-# ]
-# for FILENAME in FILES:
-#     data = pd.read_csv(FILENAME)
-#     print(f"\nData: {FILENAME}")
-#     records_df, final_profit = grid_trading(
-#         data,
-#         INTERVALS_FOR_RSV=30,
-#         INTERVAL_FOR_BOUNDS=15 * 24 * 60,
-#         SD_PARAMETER=2,
-#         GRID_NUMBER=20,
-#     )
-#     dumb_profit, difference = dealing_results(
-#         records_df=records_df,
-#         FILENAME=FILENAME,
-#         BEGINNING_CASH=BEGINNING_CASH,
-#         final_profit=final_profit,
-#         data=data,
-#         METHOD_TAG="Arithmetic_RSV_GridNumber",
-#     )
+SD_PARAMETER_VALUE = 2
+INTERVAL_FOR_BOUNDS_VALUE = 15
+INTERVAL_FOR_RSV_VALUE = 30
+GRID_NUMBER_VALUE = 6
+FILES = [
+    "./RESULT_EXCELS/Decreasing_Data.csv",
+    "./RESULT_EXCELS/Increasing_Data.csv",
+    "./RESULT_EXCELS/Mild_Fluctuate_Data.csv",
+    "./RESULT_EXCELS/All_Data.csv",
+]
+for FILENAME in FILES:
+    data = pd.read_csv(FILENAME)
+    print(f"\nData: {FILENAME}")
+    records_df, final_profit = grid_trading(
+        data,
+        INTERVALS_FOR_RSV=INTERVAL_FOR_RSV_VALUE,
+        INTERVAL_FOR_BOUNDS=INTERVAL_FOR_BOUNDS_VALUE * 24 * 60,
+        SD_PARAMETER=SD_PARAMETER_VALUE,
+        GRID_NUMBER=GRID_NUMBER_VALUE,
+    )
+    dumb_profit, difference = dealing_results(
+        records_df=records_df,
+        FILENAME=FILENAME,
+        BEGINNING_CASH=BEGINNING_CASH,
+        final_profit=final_profit,
+        data=data,
+        METHOD_TAG="Arithmetic_RSV_GridNumber",
+    )

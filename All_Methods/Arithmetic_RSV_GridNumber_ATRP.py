@@ -1,5 +1,5 @@
 import pandas as pd
-from utils import calc_bbands, calc_ATRP, get_final_profit, calc_RSV,dealing_results
+from utils import calc_bbands, calc_ATRP, get_final_profit, calc_RSV, dealing_results
 
 BOLL_UPPER = "boll_upper"
 BOLL_LOWER = "boll_lower"
@@ -78,23 +78,27 @@ def transact(
                 cash -= n * trading_buying_price
                 profit = n * trading_buying_price - BEGINNING_CASH
                 records.append(
-                        [
-                            "Buying",
-                            round(trading_buying_price),
-                            n,
-                            round(cash),
-                            round(profit),
-                            lower_bound,
-                            upper_bound,
-                            lower_grid,
-                            upper_grid,
-                            fluctuate_rate,
-                            time,
-                        ]
-                    )
-        elif is_it_first_buying>0 and n == 0 and (
-            trading_buying_price < upper_bound
-            or trading_buying_price < last_price - lower_grid
+                    [
+                        "Buying",
+                        round(trading_buying_price),
+                        n,
+                        round(cash),
+                        round(profit),
+                        lower_bound,
+                        upper_bound,
+                        lower_grid,
+                        upper_grid,
+                        fluctuate_rate,
+                        time,
+                    ]
+                )
+        elif (
+            is_it_first_buying > 0
+            and n == 0
+            and (
+                trading_buying_price < upper_bound
+                or trading_buying_price < last_price - lower_grid
+            )
         ):
             if trading_buying_price > lower_bound:
                 last_price = trading_buying_price
@@ -167,13 +171,16 @@ def grid_trading(
     records = transact(data, grid_number=GRID_NUMBER)
     if len(records) > 0:
         records_df = generate_records_df(records)
-        final_profit = get_final_profit(records_df,data=data)
+        final_profit = get_final_profit(records_df, data=data)
         return records_df, final_profit
     else:
         return "No records", 0
 
 
-
+SD_PARAMETER_VALUE = 2
+INTERVAL_FOR_BOUNDS_VALUE = 15
+INTERVAL_FOR_RSV_VALUE = 30
+GRID_NUMBER_VALUE = 6
 FILES = [
     "./RESULT_EXCELS/Decreasing_Data.csv",
     "./RESULT_EXCELS/Increasing_Data.csv",
@@ -185,10 +192,10 @@ for FILENAME in FILES:
     print(f"\nData: {FILENAME}")
     records_df, final_profit = grid_trading(
         data,
-        INTERVALS_FOR_RSV=30,
-        INTERVAL_FOR_BOUNDS=15 * 24 * 60,
-        SD_PARAMETER=2,
-        GRID_NUMBER=20,
+        INTERVALS_FOR_RSV=INTERVAL_FOR_RSV_VALUE,
+        INTERVAL_FOR_BOUNDS=INTERVAL_FOR_BOUNDS_VALUE * 24 * 60,
+        SD_PARAMETER=SD_PARAMETER_VALUE,
+        GRID_NUMBER=GRID_NUMBER_VALUE,
     )
     dumb_profit, difference = dealing_results(
         records_df=records_df,
@@ -196,5 +203,5 @@ for FILENAME in FILES:
         BEGINNING_CASH=BEGINNING_CASH,
         final_profit=final_profit,
         data=data,
-        METHOD_TAG="Arithmetic_RSV_GridNumber",
+        METHOD_TAG="Arithmetic_RSV_GridNumber_ATRP",
     )

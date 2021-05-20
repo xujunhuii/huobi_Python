@@ -89,5 +89,5 @@ def dealing_results(
     print(
         f"\nFinal Profit: {final_profit}\nDumb Profit: {dumb_profit}\nDifference: {difference}\n"
     )
-    # print(records_df)
+    print(records_df)
     return dumb_profit, difference

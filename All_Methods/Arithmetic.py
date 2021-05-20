@@ -162,6 +162,8 @@ def speedy_grid_trading(
         return "No records", 0
 
 
+SD_PARAMETER_VALUE = 3
+INTERVAL_FOR_BOUNDS_VALUE = 5
 FILES = [
     "./RESULT_EXCELS/Decreasing_Data.csv",
     "./RESULT_EXCELS/Increasing_Data.csv",
@@ -172,7 +174,9 @@ for FILENAME in FILES:
     data = pd.read_csv(FILENAME)
     print(f"\nData: {FILENAME}")
     records_df, final_profit = speedy_grid_trading(
-        data, INTERVAL_FOR_BOUNDS=5 * 24 * 60, SD_PARAMETER=3,
+        data,
+        INTERVAL_FOR_BOUNDS=INTERVAL_FOR_BOUNDS_VALUE * 24 * 60,
+        SD_PARAMETER=SD_PARAMETER_VALUE,
     )
     records_df["Hour"] = pd.to_datetime(records_df["Hour"])
     dumb_profit, difference = dealing_results(
