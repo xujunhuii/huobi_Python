@@ -57,7 +57,7 @@ def save_excel(records_df, FILENAME, METHOD_TAG):
     if len(records_df) > 0:
         FILE = FILENAME.split("/")[-1].split(".")[0]
         EXCEL_NAME = f"./RESULT_EXCELS/{FILE}_{METHOD_TAG}.xlsx"
-        print(f"The transactions will be saved into {EXCEL_NAME} :) \n")
+        print(f"The transactions will be saved into {EXCEL_NAME} :)")
         records_df.to_excel(EXCEL_NAME)
 
 
@@ -69,3 +69,25 @@ def get_final_profit(df, data):
     else:
         final_profit = temp["Profit"]
     return final_profit
+
+
+def get_dumb_profit(data, BEGINNING_CASH):
+    begin = data.iloc[0]
+    end = data.tail(1).iloc[0]
+    n = BEGINNING_CASH / begin["Close"]
+    profit = (end["Close"] - begin["Close"]) * n
+    return profit
+
+
+def dealing_results(
+    records_df, FILENAME, BEGINNING_CASH, final_profit, data, METHOD_TAG
+):
+    records_df["Hour"] = pd.to_datetime(records_df["Hour"])
+    save_excel(records_df=records_df, FILENAME=FILENAME, METHOD_TAG=METHOD_TAG)
+    dumb_profit = get_dumb_profit(data=data, BEGINNING_CASH=BEGINNING_CASH)
+    difference = final_profit - dumb_profit
+    print(
+        f"\nFinal Profit: {final_profit}\nDumb Profit: {dumb_profit}\nDifference: {difference}\n"
+    )
+    # print(records_df)
+    return dumb_profit, difference

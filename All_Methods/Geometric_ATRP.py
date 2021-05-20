@@ -1,5 +1,5 @@
 import pandas as pd
-from utils import calc_bbands, check_last_row
+from utils import calc_bbands, generate_records_df, calc_ATRP, get_final_profit
 
 BOLL_UPPER = "boll_upper"
 BOLL_LOWER = "boll_lower"
@@ -22,33 +22,12 @@ def calc_RSV(prices, INTERVALS_FOR_RSV):
     return RSV
 
 
-def generate_records_df(records):
-    records_df = pd.DataFrame(
-        records,
-        columns=[
-            "Action",
-            "Price",
-            "n",
-            "Cash",
-            "Profit",
-            "LowerBound",
-            "UpperBound",
-            "LowerGrid",
-            "UpperGrid",
-            "Hour",
-        ],
-    )
-    records_df = check_last_row(records_df)
-    return records_df
-
-
-def get_grid_arithmetic(lower_bound, upper_bound, rsv):
-    if rsv != 1:
-        lower_grid = (upper_bound - lower_bound) * (1 - rsv) / 5
-        upper_grid = rsv / (1 - rsv) * lower_grid
-    else:
-        lower_grid = upper_grid = (upper_bound - lower_bound) / 10
-    return lower_grid, upper_grid
+def get_rate(lower_bound, upper_bound):
+    for n in range(N_GRID, 5, -5):
+        rate = pow(upper_bound / lower_bound, 1 / (n - 1)) - 1
+        if not isinstance(1j, complex) and rate > FEE:
+            return rate
+    return FEE + 0.001
 
 
 def transact(
@@ -57,16 +36,18 @@ def transact(
     for index, row in data.iterrows():
         time = row[TIMESTAMP]
         price = row[CLOSE]
-        rsv = row["RSV"]
         upper_bound = row[BOLL_UPPER]
         lower_bound = row[BOLL_LOWER]
-        lower_grid, upper_grid = get_grid_arithmetic(lower_bound, upper_bound, rsv)
+        rate = get_rate(lower_bound, upper_bound)
+        fluctuate_rate = row["ATRP_Diff"]
+        rate = rate * (1 + fluctuate_rate)
+
         trading_buying_price = price * (1 + FEE)
         trading_selling_price = price * (1 - FEE)
 
         if n == 0 and (
             trading_buying_price < upper_bound
-            or trading_buying_price < last_price - lower_grid
+            or trading_buying_price < last_price * (1 - rate)
         ):
             if trading_buying_price > lower_bound:
                 last_price = trading_buying_price
@@ -83,19 +64,18 @@ def transact(
                             round(profit),
                             lower_bound,
                             upper_bound,
-                            lower_grid,
-                            upper_grid,
+                            rate,
                             time,
                         ]
                     )
 
         elif n > 0 and (
             trading_selling_price > lower_bound
-            or trading_selling_price > last_price + upper_grid
+            or trading_selling_price > last_price * (1 + rate)
         ):
             if (
                 trading_selling_price < upper_bound
-                and trading_selling_price > last_price + upper_grid
+                and trading_selling_price > last_price * (1 + rate)
             ):
                 last_price = trading_selling_price
                 cash += n * trading_selling_price
@@ -110,18 +90,11 @@ def transact(
                         round(profit),
                         lower_bound,
                         upper_bound,
-                        lower_grid,
-                        upper_grid,
+                        rate,
                         time,
                     ]
                 )
     return records
-
-
-def get_final_profit(df):
-    temp = df.tail(1)
-    final_profit = temp.iloc[0]["Profit"]
-    return final_profit
 
 
 def grid_trading(
@@ -132,6 +105,11 @@ def grid_trading(
     upper, _, lower = calc_bbands(data["Close"], INTERVAL_FOR_BOUNDS, SD_PARAMETER)
     data["boll_upper"] = upper
     data["boll_lower"] = lower
+    ATRP = calc_ATRP(data["High"], data["Low"], data["Close"])
+    data["ATRP"] = ATRP
+    TOTAL_RANGE = data["ATRP"].max() - data["ATRP"].min()
+    AVERAGE = (data["ATRP"].max() + data["ATRP"].min()) / 2
+    data["ATRP_Diff"] = (data["ATRP"] - AVERAGE) / TOTAL_RANGE
     data = data.dropna()
     data.reset_index(drop=True, inplace=True)
     records = transact(data)
@@ -149,6 +127,11 @@ def speedy_grid_trading(
     upper, _, lower = calc_bbands(data["Close"], INTERVAL_FOR_BOUNDS, SD_PARAMETER)
     data["boll_upper"] = upper
     data["boll_lower"] = lower
+    ATRP = calc_ATRP(data["High"], data["Low"], data["Close"])
+    data["ATRP"] = ATRP
+    TOTAL_RANGE = data["ATRP"].max() - data["ATRP"].min()
+    AVERAGE = (data["ATRP"].max() + data["ATRP"].min()) / 2
+    data["ATRP_Diff"] = (data["ATRP"] - AVERAGE) / TOTAL_RANGE
     data = data.dropna()
     data.reset_index(drop=True, inplace=True)
     records = transact(data)

@@ -1,5 +1,5 @@
 import pandas as pd
-from utils import calc_bbands, generate_records_df
+from utils import calc_bbands, generate_records_df, get_final_profit
 
 BOLL_UPPER = "boll_upper"
 BOLL_LOWER = "boll_lower"
@@ -92,12 +92,6 @@ def transact(
                     ]
                 )
     return records
-
-
-def get_final_profit(df):
-    temp = df.tail(1)
-    final_profit = temp.iloc[0]["Profit"]
-    return final_profit
 
 
 def grid_trading(
