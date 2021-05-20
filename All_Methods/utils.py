@@ -1,6 +1,13 @@
 import pandas as pd
 import numpy as np
 
+ALL_FILES = [
+    "./RESULT_EXCELS/Decreasing_May.xlsx",
+    "./RESULT_EXCELS/Increasing_Data.xlsx",
+    "./RESULT_EXCELS/Mild_Fluctuate_Data.xlsx",
+    "./RESULT_EXCELS/All_Data.xlsx",
+]
+
 
 def calc_RSV(prices, INTERVALS_FOR_RSV):
     C = prices

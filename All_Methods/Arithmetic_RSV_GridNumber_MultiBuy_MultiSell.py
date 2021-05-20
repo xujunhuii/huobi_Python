@@ -1,5 +1,5 @@
 import pandas as pd
-from utils import calc_bbands, calc_RSV, get_final_profit, dealing_results
+from utils import calc_bbands, calc_RSV, get_final_profit, dealing_results, ALL_FILES
 
 BOLL_UPPER = "boll_upper"
 BOLL_LOWER = "boll_lower"
@@ -171,14 +171,14 @@ SD_PARAMETER_VALUE = 2
 INTERVAL_FOR_BOUNDS_VALUE = 15
 INTERVAL_FOR_RSV_VALUE = 30
 GRID_NUMBER_VALUE = 6
-FILES = [
+ALL_FILES = [
     "./RESULT_EXCELS/Decreasing_Data.csv",
     "./RESULT_EXCELS/Increasing_Data.csv",
     "./RESULT_EXCELS/Mild_Fluctuate_Data.csv",
     "./RESULT_EXCELS/All_Data.csv",
 ]
-for FILENAME in FILES:
-    data = pd.read_csv(FILENAME)
+for FILENAME in ALL_FILES:
+    data = pd.read_excel(FILENAME)
     print(f"\nData: {FILENAME}")
     records_df, final_profit = grid_trading(
         data,

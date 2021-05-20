@@ -6,6 +6,7 @@ from utils import (
     get_final_profit,
     calc_RSV,
     dealing_results,
+    ALL_FILES,
 )
 
 BOLL_UPPER = "boll_upper"
@@ -156,14 +157,9 @@ def grid_trading(
 SD_PARAMETER_VALUE = 2
 INTERVAL_FOR_BOUNDS_VALUE = 15
 INTERVAL_FOR_RSV_VALUE = 30
-FILES = [
-    "./RESULT_EXCELS/Decreasing_Data.csv",
-    "./RESULT_EXCELS/Increasing_Data.csv",
-    "./RESULT_EXCELS/Mild_Fluctuate_Data.csv",
-    "./RESULT_EXCELS/All_Data.csv",
-]
-for FILENAME in FILES:
-    data = pd.read_csv(FILENAME)
+METHOD_TAG = "Geometric_ATRP"
+for FILENAME in ALL_FILES:
+    data = pd.read_excel(FILENAME)
     print(f"\nData: {FILENAME}")
     records_df, final_profit = grid_trading(
         data,
@@ -178,5 +174,5 @@ for FILENAME in FILES:
         BEGINNING_CASH=BEGINNING_CASH,
         final_profit=final_profit,
         data=data,
-        METHOD_TAG="Geometric_ATRP",
+        METHOD_TAG=METHOD_TAG,
     )

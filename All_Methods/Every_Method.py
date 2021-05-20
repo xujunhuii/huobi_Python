@@ -16,7 +16,7 @@ FILENAME = "Decreasing_Data.csv"
 # FILENAME = "Increasing_Data.csv"
 # FILENAME = "Mild_Fluctuate_Data.csv"
 # FILENAME = "Binance_BTC_1m.csv"
-data = pd.read_csv(FILENAME)
+data = pd.read_excel(FILENAME)
 # records_df, final_profit = grid_trading(
 #     data,
 #     INTERVALS_FOR_RSV=30,
@@ -41,7 +41,7 @@ print(records_df)
 #     "Decreasing_Data.csv",
 # ]
 # for FILENAME in FILENAMES:
-#     data = pd.read_csv(FILENAME)
+#     data = pd.read_excel(FILENAME)
 #     print(f"Number of data: {len(data)}")
 #     # records_df, final_profit = grid_trading(
 #     #     data,
